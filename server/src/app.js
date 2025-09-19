@@ -2,11 +2,30 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
+import cors from './config/corsConfig.js';
+import { displayStartupMessage } from './config/start.js';
 
 const app = express();
 
-app.use(express.json());
+// Startup message
+displayStartupMessage();
 
+// Middleware
+app.use(express.json());
+app.use(cors);
+
+// Request logging middleware
+app.use((req, res, next) => {
+  const start = Date.now();
+  res.on('finish', () => {
+    const duration = Date.now() - start;
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] ${req.method} ${req.originalUrl} → ${res.statusCode} (${duration}ms)`);
+  });
+  next();
+});
+
+// Routes
 app.get('/', (req, res) => res.send('Server is live... '));
 
 // 404 handler
