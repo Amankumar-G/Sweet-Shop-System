@@ -9,7 +9,8 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=5000
-      - MONGO_URI=mongodb://mongo:27017/sweetshop
+      - JWT_SECRET=sl^*&&YDhDASM
+      - MONGO_URI=mongodb://admin:password@localhost:27017/sweetshop?authSource=admin
     depends_on:
       mongo:
         condition: service_healthy
@@ -28,4 +29,4 @@ services:
       - mongodb_data:/data/db
 
 volumes:
-  mongo-data:
+  mongodb_data:
