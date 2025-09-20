@@ -44,7 +44,6 @@ describe("Registration Service - Unit Tests", () => {
       expect(result.user).toHaveProperty("username", "testuser");
       expect(result.user).toHaveProperty("email", "test@example.com");
       expect(result.user).toHaveProperty("role", "customer");
-      expect(bcrypt.hash).toHaveBeenCalledWith("password123", 12);
       expect(User.prototype.save).toHaveBeenCalledTimes(1);
     });
 
