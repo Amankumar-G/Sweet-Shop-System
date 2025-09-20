@@ -65,7 +65,7 @@ describe("PUT /api/sweets/:id/restock", () => {
       .send(restockData)
       .expect(403);
 
-    expect(response.body.error).toBe("Forbidden: Admins only");
+    expect(response.body.error).toBe("Admin access required");
   });
 
   it("should successfully restock sweet with existing inventory", async () => {
@@ -95,7 +95,7 @@ describe("PUT /api/sweets/:id/restock", () => {
 
     const response = await request(app)
       .put(`/api/sweets/${sweetId}/restock`)
-      .set("Authorization", `Bearer ${userToken}`)
+      .set("Authorization", `Bearer ${adminToken}`)
       .send(restockData)
       .expect(200);
 
@@ -116,7 +116,7 @@ describe("PUT /api/sweets/:id/restock", () => {
 
     const response = await request(app)
       .put(`/api/sweets/${sweetId}/restock`)
-      .set("Authorization", `Bearer ${userToken}`)
+      .set("Authorization", `Bearer ${adminToken}`)
       .send(restockData)
       .expect(200);
 
@@ -135,7 +135,7 @@ describe("PUT /api/sweets/:id/restock", () => {
 
     const response = await request(app)
       .put(`/api/sweets/${nonExistentId}/restock`)
-      .set("Authorization", `Bearer ${userToken}`)
+      .set("Authorization", `Bearer ${adminToken}`)
       .send(restockData)
       .expect(404);
 
@@ -150,7 +150,7 @@ describe("PUT /api/sweets/:id/restock", () => {
 
     const response = await request(app)
       .put(`/api/sweets/${invalidId}/restock`)
-      .set("Authorization", `Bearer ${userToken}`)
+      .set("Authorization", `Bearer ${adminToken}`)
       .send(restockData)
       .expect(400);
 
@@ -163,7 +163,7 @@ describe("PUT /api/sweets/:id/restock", () => {
 
     const response = await request(app)
       .put(`/api/sweets/${sweetId}/restock`)
-      .set("Authorization", `Bearer ${userToken}`)
+      .set("Authorization", `Bearer ${adminToken}`)
       .send(restockData)
       .expect(400);
 
@@ -182,7 +182,7 @@ describe("PUT /api/sweets/:id/restock", () => {
 
     const response = await request(app)
       .put(`/api/sweets/${sweetId}/restock`)
-      .set("Authorization", `Bearer ${userToken}`)
+      .set("Authorization", `Bearer ${adminToken}`)
       .send(restockData)
       .expect(400);
 
@@ -201,7 +201,7 @@ describe("PUT /api/sweets/:id/restock", () => {
 
     const response = await request(app)
       .put(`/api/sweets/${sweetId}/restock`)
-      .set("Authorization", `Bearer ${userToken}`)
+      .set("Authorization", `Bearer ${adminToken}`)
       .send(restockData)
       .expect(400);
 
@@ -214,7 +214,7 @@ describe("PUT /api/sweets/:id/restock", () => {
 
     const response = await request(app)
       .put(`/api/sweets/${sweetId}/restock`)
-      .set("Authorization", `Bearer ${userToken}`)
+      .set("Authorization", `Bearer ${adminToken}`)
       .send(restockData)
       .expect(400);
 
@@ -227,7 +227,7 @@ describe("PUT /api/sweets/:id/restock", () => {
 
     const response = await request(app)
       .put(`/api/sweets/${sweetId}/restock`)
-      .set("Authorization", `Bearer ${userToken}`)
+      .set("Authorization", `Bearer ${adminToken}`)
       .send(restockData)
       .expect(400);
 
@@ -246,7 +246,7 @@ describe("PUT /api/sweets/:id/restock", () => {
 
     const response = await request(app)
       .put(`/api/sweets/${sweetId}/restock`)
-      .set("Authorization", `Bearer ${userToken}`)
+      .set("Authorization", `Bearer ${adminToken}`)
       .send(restockData)
       .expect(400);
 
@@ -259,7 +259,7 @@ describe("PUT /api/sweets/:id/restock", () => {
 
     const response = await request(app)
       .put(`/api/sweets/${sweetId}/restock`)
-      .set("Authorization", `Bearer ${userToken}`)
+      .set("Authorization", `Bearer ${adminToken}`)
       .send(restockData)
       .expect(400);
 
@@ -272,7 +272,7 @@ describe("PUT /api/sweets/:id/restock", () => {
 
     const response = await request(app)
       .put(`/api/sweets/${sweetId}/restock`)
-      .set("Authorization", `Bearer ${userToken}`)
+      .set("Authorization", `Bearer ${adminToken}`)
       .send(restockData)
       .expect(200);
 
@@ -297,7 +297,7 @@ describe("PUT /api/sweets/:id/restock", () => {
 
     const response = await request(app)
       .put(`/api/sweets/${sweetId}/restock`)
-      .set("Authorization", `Bearer ${userToken}`)
+      .set("Authorization", `Bearer ${adminToken}`)
       .send(restockData)
       .expect(500);
 
@@ -321,7 +321,7 @@ describe("PUT /api/sweets/:id/restock", () => {
 
     const response = await request(app)
       .put(`/api/sweets/${sweetId}/restock`)
-      .set("Authorization", `Bearer ${userToken}`)
+      .set("Authorization", `Bearer ${adminToken}`)
       .send(restockData)
       .expect(500);
 

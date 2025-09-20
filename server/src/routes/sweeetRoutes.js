@@ -6,6 +6,7 @@ import { authenticateJWT, requireAdmin } from '../middleware/auth.js';
 import { updateSweetController } from '../controllers/updateSweet.js';
 import { searchAndSortSweets } from '../controllers/searchAndSort.js';
 import { purchaseSweetController } from '../controllers/purchase.js';
+import { restockSweetController } from '../controllers/restockSweet.js';
 
 const router = express.Router();
 
@@ -14,6 +15,7 @@ router.get('/', authenticateJWT,viewSweetController);
 router.post('/', authenticateJWT, requireAdmin, addSweetController); // Only admin
 router.delete('/:id', authenticateJWT, requireAdmin, deleteSweetController); // Only admin
 router.put('/:id', authenticateJWT, requireAdmin, updateSweetController); // Only admin
+router.put("/:id/restock",authenticateJWT, requireAdmin,  restockSweetController);
 
 router.get('/search', authenticateJWT, searchAndSortSweets);
 router.post('/:id/purchase',authenticateJWT,  purchaseSweetController);
