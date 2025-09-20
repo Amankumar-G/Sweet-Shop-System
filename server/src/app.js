@@ -4,6 +4,7 @@ dotenv.config();
 import express from 'express';
 import cors from './config/corsConfig.js';
 import { displayStartupMessage } from './config/start.js';
+import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.get('/', (req, res) => res.send('Server is live... '));
+app.use("/api/auth", authRoutes);
 
 // 404 handler
 app.use((req, res, next) => {
