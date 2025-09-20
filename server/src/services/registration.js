@@ -51,14 +51,11 @@ export const registerUser = async (userData) => {
       throw new Error('Username is already taken');
     }
 
-    // Hash password
-    const hashedPassword = await bcrypt.hash(userData.password, 12);
-
     // Create user
     const user = new User({
       username: userData.username,
       email: userData.email,
-      password: hashedPassword,
+      password: userData.password,
       role: userData.role || 'customer'
     });
 
