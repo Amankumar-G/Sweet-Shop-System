@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 
 const Sidebar = () => {
-  const { sidebarOpen, user } = useLayout();
+  const { sidebarOpen, user, setSidebarOpen } = useLayout();
   const location = useLocation();
 
   const navigation = [
@@ -45,16 +45,17 @@ const Sidebar = () => {
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div 
-          className="fixed inset-0 bg-gray-600 bg-opacity-50 z-20 lg:hidden"
+          className="fixed inset-0 bg-gray-600 bg-opacity-50 z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
       
       {/* Sidebar */}
       <div className={`
-        fixed inset-y-0 left-0 z-30 w-64 bg-white transform transition-transform duration-300 ease-in-out
-        lg:translate-x-0 lg:static lg:inset-0
+        fixed top-0 left-0 h-full z-50 w-64 bg-white transform transition-transform duration-300 ease-in-out
+        lg:relative lg:translate-x-0 lg:z-auto lg:h-screen
         ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+        border-r border-gray-200
       `}>
         <div className="flex items-center justify-between h-16 px-4 bg-gradient-to-r from-orange-400 to-pink-500">
           <div className="flex items-center">
@@ -65,19 +66,20 @@ const Sidebar = () => {
           </div>
         </div>
         
-        <div className="h-full overflow-y-auto py-4 px-3 bg-white">
+        <div className="h-[calc(100vh-4rem)] overflow-y-auto py-4 px-3 bg-white sidebar-scroll">
           <div className="space-y-2">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
                 className={`
-                  flex items-center p-2 text-base font-medium rounded-lg group
+                  flex items-center p-3 text-base font-medium rounded-lg group
                   ${location.pathname === item.href
                     ? 'text-white bg-gradient-to-r from-orange-400 to-pink-500'
                     : 'text-gray-900 hover:bg-gray-100'
                   }
                 `}
+                onClick={() => window.innerWidth < 1024 && setSidebarOpen(false)}
               >
                 <span className="mr-3">{item.icon}</span>
                 <span>{item.name}</span>
@@ -94,12 +96,13 @@ const Sidebar = () => {
                     key={item.name}
                     to={item.href}
                     className={`
-                      flex items-center p-2 text-base font-medium rounded-lg group
+                      flex items-center p-3 text-base font-medium rounded-lg group
                       ${location.pathname === item.href
                         ? 'text-white bg-gradient-to-r from-orange-400 to-pink-500'
                         : 'text-gray-900 hover:bg-gray-100'
                       }
                     `}
+                    onClick={() => window.innerWidth < 1024 && setSidebarOpen(false)}
                   >
                     <span className="mr-3">{item.icon}</span>
                     <span>{item.name}</span>
@@ -114,4 +117,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar; 
+export default Sidebar;
