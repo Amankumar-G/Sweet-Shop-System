@@ -68,8 +68,10 @@ export const registerUser = async (userData) => {
     // Generate JWT token
     const token = jwt.sign(
       { 
-        id: savedUser._id,
-        role: savedUser.role
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role
       },
       process.env.JWT_SECRET,
       { expiresIn: '24h' }
