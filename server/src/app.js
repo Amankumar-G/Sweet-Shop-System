@@ -2,14 +2,20 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
+import passport from 'passport';
 import cors from './config/corsConfig.js';
 import { displayStartupMessage } from './config/start.js';
 import authRoutes from "./routes/authRoutes.js";
+import sweeetRoutes from "./routes/sweeetRoutes.js";
+import passportConfig from './config/passport.js';
 
 const app = express();
 
 // Startup message
 displayStartupMessage();
+
+app.use(passport.initialize());
+passportConfig(passport);
 
 // Middleware
 app.use(express.json());
@@ -29,6 +35,7 @@ app.use((req, res, next) => {
 // Routes
 app.get('/', (req, res) => res.send('Server is live... '));
 app.use("/api/auth", authRoutes);
+app.use("/api/sweets", sweeetRoutes);
 
 // 404 handler
 app.use((req, res, next) => {

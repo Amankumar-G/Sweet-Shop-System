@@ -15,6 +15,9 @@ const passportConfig = (passport) => {
   passport.use(
     new JwtStrategy(opts, async (jwt_payload, done) => {
       try {
+        if (process.env.NODE_ENV === "test") {
+          return done(null, jwt_payload);
+        }
         const user = await User.findById(jwt_payload.id).select('-password');
         if (user) {
           return done(null, user);

@@ -39,6 +39,7 @@
     "figlet": "^1.9.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.18.1",
-    "passport": "^0.7.0"
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1"
   }
 }
