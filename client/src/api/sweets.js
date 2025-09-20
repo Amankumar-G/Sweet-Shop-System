@@ -59,6 +59,7 @@ export const sweetsAPI = {
   },
 
   purchase: async (id, quantity = 1) => {
+    console.log(id)
     try {
       const response = await axios.post(
         `${API_BASE_URL}/sweets/${id}/purchase`,
@@ -74,4 +75,20 @@ export const sweetsAPI = {
       }
     }
   }
+};
+
+export const addSweet = async (sweetData) => {
+  const token = localStorage.getItem("token");
+  const res = await fetch(`${API_BASE_URL}/sweets`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${token}`,
+    },
+    body: JSON.stringify(sweetData),
+  });
+
+  const data = await res.json();
+  if (!res.ok) throw data;
+  return data;
 };

@@ -59,7 +59,7 @@ const Header = () => {
                 <DropdownMenuSeparator />
 
                 {/* Navigation Links */}
-                <DropdownMenuItem onClick={() => handleNavigation('/sweets')}>
+                <DropdownMenuItem onClick={() => handleNavigation('/dashboard')}>
                   View Sweets
                 </DropdownMenuItem>
 
