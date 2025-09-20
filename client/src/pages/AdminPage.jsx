@@ -7,7 +7,8 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { toast } from "sonner";
-import { addSweet as addSweetAPI } from "@/api/sweets";
+import { sweetsAPI } from "@/api/sweets";
+
 const AdminPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -92,7 +93,7 @@ const AdminPage = () => {
 
     setIsLoading(true);
     try {
-      await addSweetAPI({
+      await sweetsAPI.addSweet({
         name: formData.name.trim(),
         category: formData.category,
         price: parseFloat(formData.price),

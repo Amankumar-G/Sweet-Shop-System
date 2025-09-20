@@ -12,15 +12,19 @@ import { Label } from "@/components/ui/label";
 import { sweetsAPI } from "@/api/sweets";
 import SweetCard from "@/components/sweets/SweetCard";
 import { toast } from "sonner";
+import { useLayout } from "@/contexts/LayoutContext";
+import { useNavigate } from "react-router-dom";
 
 const SweetsPage = () => {
   const [sweets, setSweets] = useState([]);
+  const { user } = useLayout();
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [sortBy, setSortBy] = useState("name");
-  const [sortOrder, setSortOrder] = useState("asc");
-  const [role, setRole] = useState(localStorage.getItem("role") || "user"); // Example: store role in localStorage
+  const [actionLoading, setActionLoading] = useState({}); // Track individual action loading states
+  const navigate = useNavigate();
+  const role = user.role;
 
   const categories = [
     "all",
@@ -80,6 +84,37 @@ const SweetsPage = () => {
     toast.info("Refreshing sweets list");
   };
 
+  const handlePurchase = async (sweetId, quantity = 1) => {
+    try {
+      setActionLoading(prev => ({ ...prev, [sweetId]: { purchase: true } }));
+      await sweetsAPI.purchase(sweetId, quantity);
+      toast.success("Purchase successful!");
+      fetchSweets(); // Refresh the list to update stock
+    } catch (error) {
+      toast.error("Purchase failed: " + error.message);
+    } finally {
+      setActionLoading(prev => ({ ...prev, [sweetId]: { purchase: false } }));
+    }
+  };
+
+  const handleRestock = async (sweetId, quantity) => {
+    try {
+      if (!quantity || quantity <= 0) {
+        toast.error("Please enter a valid quantity");
+        return;
+      }
+      
+      setActionLoading(prev => ({ ...prev, [sweetId]: { restock: true } }));
+      await sweetsAPI.restock(sweetId, quantity);
+      toast.success("Restock successful!");
+      fetchSweets(); // Refresh the list
+    } catch (error) {
+      toast.error("Restock failed: " + error.message);
+    } finally {
+      setActionLoading(prev => ({ ...prev, [sweetId]: { restock: false } }));
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="space-y-6">
@@ -107,13 +142,23 @@ const SweetsPage = () => {
             {sweets.length} {sweets.length === 1 ? "sweet" : "sweets"} available
           </p>
         </div>
-        <Button
-          variant="outline"
-          onClick={handleRefresh}
-          className="border-orange-300 text-orange-600 hover:bg-orange-50"
-        >
-          Refresh
-        </Button>
+        <div className="flex gap-2">
+          {role === "admin" && (
+            <Button
+              onClick={() => navigate("/admin")}
+              className="bg-green-600 text-white hover:bg-green-700"
+            >
+              Add New Sweet
+            </Button>
+          )}
+          <Button
+            variant="outline"
+            onClick={handleRefresh}
+            className="border-orange-300 text-orange-600 hover:bg-orange-50"
+          >
+            Refresh
+          </Button>
+        </div>
       </div>
 
       {/* Search & Filter */}
@@ -124,6 +169,9 @@ const SweetsPage = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="flex-1"
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') fetchSweets();
+            }}
           />
           <Button
             onClick={fetchSweets}
@@ -179,8 +227,10 @@ const SweetsPage = () => {
             <SweetCard
               key={sweet._id || sweet.id}
               sweet={sweet}
-              onPurchase={fetchSweets}
+              onPurchase={handlePurchase}
+              onRestock={handleRestock}
               role={role}
+              isLoading={actionLoading[sweet._id || sweet.id]}
             />
           ))}
         </div>
