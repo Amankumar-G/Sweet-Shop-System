@@ -7,6 +7,7 @@ import DashboardPage from './pages/DashboardPage';
 import SweetsPage from './pages/SweetsPage';
 import AdminPage from './pages/AdminPage';
 import MainLayout from './components/layout/MainLayout';
+import { Toaster } from "@/components/ui/sonner"
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
               </MainLayout>
             } />
           </Routes>
+           <Toaster />
         </div>
       </Router>
     </LayoutProvider>
