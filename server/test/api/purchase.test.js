@@ -71,8 +71,8 @@ describe("POST /api/sweets/:id/purchase", () => {
     const purchaseData = { quantity: 3 };
 
     const response = await request(app)
-      .set("Authorization", `Bearer ${userToken}`)
       .post(`/api/sweets/${sweetId}/purchase`)
+      .set("Authorization", `Bearer ${userToken}`)
       .send(purchaseData)
       .expect(200);
 
@@ -92,8 +92,8 @@ describe("POST /api/sweets/:id/purchase", () => {
     const purchaseData = { quantity: 5 };
 
     const response = await request(app)
-      .set("Authorization", `Bearer ${userToken}`)
       .post(`/api/sweets/${sweetId}/purchase`)
+      .set("Authorization", `Bearer ${userToken}`)
       .send(purchaseData)
       .expect(200);
 
@@ -111,8 +111,8 @@ describe("POST /api/sweets/:id/purchase", () => {
     const purchaseData = { quantity: 1 };
 
     const response = await request(app)
-      .set("Authorization", `Bearer ${userToken}`)
       .post(`/api/sweets/${nonExistentId}/purchase`)
+      .set("Authorization", `Bearer ${userToken}`)
       .send(purchaseData)
       .expect(404);
 
@@ -126,8 +126,8 @@ describe("POST /api/sweets/:id/purchase", () => {
     const purchaseData = { quantity: 1 };
 
     const response = await request(app)
-      .set("Authorization", `Bearer ${userToken}`)
       .post(`/api/sweets/${invalidId}/purchase`)
+      .set("Authorization", `Bearer ${userToken}`)
       .send(purchaseData)
       .expect(400);
 
@@ -139,8 +139,8 @@ describe("POST /api/sweets/:id/purchase", () => {
     const purchaseData = { quantity: 15 };
 
     const response = await request(app)
-      .set("Authorization", `Bearer ${userToken}`)
       .post(`/api/sweets/${sweetId}/purchase`)
+      .set("Authorization", `Bearer ${userToken}`)
       .send(purchaseData)
       .expect(400);
 
@@ -157,8 +157,8 @@ describe("POST /api/sweets/:id/purchase", () => {
     const purchaseData = { quantity: 1 };
 
     const response = await request(app)
-      .set("Authorization", `Bearer ${userToken}`)
       .post(`/api/sweets/${sweetId}/purchase`)
+      .set("Authorization", `Bearer ${userToken}`)
       .send(purchaseData)
       .expect(400);
 
@@ -172,8 +172,8 @@ describe("POST /api/sweets/:id/purchase", () => {
     const purchaseData = { quantity: 0 };
 
     const response = await request(app)
-      .set("Authorization", `Bearer ${userToken}`)
       .post(`/api/sweets/${sweetId}/purchase`)
+      .set("Authorization", `Bearer ${userToken}`)
       .send(purchaseData)
       .expect(400);
 
@@ -187,8 +187,8 @@ describe("POST /api/sweets/:id/purchase", () => {
     const purchaseData = { quantity: -5 };
 
     const response = await request(app)
-      .set("Authorization", `Bearer ${userToken}`)
       .post(`/api/sweets/${sweetId}/purchase`)
+      .set("Authorization", `Bearer ${userToken}`)
       .send(purchaseData)
       .expect(400);
 
@@ -202,8 +202,8 @@ describe("POST /api/sweets/:id/purchase", () => {
     const purchaseData = { quantity: "invalid" };
 
     const response = await request(app)
-      .set("Authorization", `Bearer ${userToken}`)
       .post(`/api/sweets/${sweetId}/purchase`)
+      .set("Authorization", `Bearer ${userToken}`)
       .send(purchaseData)
       .expect(400);
 
@@ -217,8 +217,8 @@ describe("POST /api/sweets/:id/purchase", () => {
     const purchaseData = {}; // No quantity field
 
     const response = await request(app)
-      .set("Authorization", `Bearer ${userToken}`)
       .post(`/api/sweets/${sweetId}/purchase`)
+      .set("Authorization", `Bearer ${userToken}`)
       .send(purchaseData)
       .expect(400);
 
@@ -230,8 +230,8 @@ describe("POST /api/sweets/:id/purchase", () => {
     const purchaseData = { quantity: 2.5 };
 
     const response = await request(app)
-      .set("Authorization", `Bearer ${userToken}`)
       .post(`/api/sweets/${sweetId}/purchase`)
+      .set("Authorization", `Bearer ${userToken}`)
       .send(purchaseData)
       .expect(400);
 
@@ -250,8 +250,8 @@ describe("POST /api/sweets/:id/purchase", () => {
       .mockRejectedValue(new Error("Database connection failed"));
 
     const response = await request(app)
-      .set("Authorization", `Bearer ${userToken}`)
       .post(`/api/sweets/${sweetId}/purchase`)
+      .set("Authorization", `Bearer ${userToken}`)
       .send(purchaseData)
       .expect(500);
 
