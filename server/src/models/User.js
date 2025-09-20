@@ -33,16 +33,8 @@ const userSchema = new mongoose.Schema({
   }
 }, {
   timestamps: true,
-  toJSON: {
-    transform: function(doc, ret) {
-      delete ret.password;
-      delete ret.__v;
-      return ret;
-    }
-  }
 });
 
-userSchema.index({ email: 1 });
 userSchema.index({ username: 1 });
 
 userSchema.pre('save', async function(next) {
