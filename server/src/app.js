@@ -8,6 +8,7 @@ import { displayStartupMessage } from './config/start.js';
 import authRoutes from "./routes/authRoutes.js";
 import sweeetRoutes from "./routes/sweeetRoutes.js";
 import passportConfig from './config/passport.js';
+import init from './helper/initDatabase.js'
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use((req, res, next) => {
 app.get('/', (req, res) => res.send('Server is live... '));
 app.use("/api/auth", authRoutes);
 app.use("/api/sweets", sweeetRoutes);
+app.use("/api/init", init);
 
 // 404 handler
 app.use((req, res, next) => {
