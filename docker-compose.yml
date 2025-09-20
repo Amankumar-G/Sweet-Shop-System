@@ -27,6 +27,12 @@ services:
       MONGO_INITDB_DATABASE: sweetshop
     volumes:
       - mongodb_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
 
 volumes:
   mongodb_data:
