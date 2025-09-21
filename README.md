@@ -1,5 +1,18 @@
 # 🍬 Sweet Delights
 
+## Live demo
+
+You can try the deployed demo here:
+
+- URL: https://sweets.amanverse.dev/
+
+Admin demo credentials (use for testing only):
+
+- Email: `admin@sweets.com`
+- Password: `admin123!`
+
+Note: These demo credentials are publicly visible in this repository for convenience of testing only.
+
 ## Installation Guide
 
 ### 1. Repository Setup
@@ -107,6 +120,7 @@ After running tests, view the comprehensive analysis:
 * **Database (MongoDB)**: Document-based storage for sweet inventory.
 * **Testing (Jest)**: Comprehensive test suite with API and unit tests.
 * **Containerization (Docker)**: Simplified deployment and development setup.
+* **Hosting (AWS)**: Deployed version of the Sweet Delights.
 
 ---
 
